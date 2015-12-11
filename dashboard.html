@@ -1,0 +1,227 @@
+<html>
+  
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://netdna.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.3.0/css/font-awesome.min.css"
+    rel="stylesheet" type="text/css">
+    <link href="page.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+      $(document).ready(function () {
+          $('a.tree-toggler').click(function () {
+              $(this).closest("div").parent().children('ul.tree').toggle(300);
+          });
+      });
+    </script>
+  </head>
+  
+  <body>
+    <div class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-ex-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"><span>JSelenium</span></a>
+        </div>
+        <div class="collapse navbar-collapse" id="navbar-ex-collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="active">
+              <a href="#">Home</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <ul class="nav nav-list">
+              <li>
+                <label class="nav-header">Project</label>
+                <ul class="nav nav-list">
+                  <li>
+                    <div class="btn-group">
+                      <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"
+                      aria-haspopup="true" aria-expanded="false">Test Group
+                        <span class="caret"></span>
+                      </button>
+                      <ul class="dropdown-menu">
+                        <li>
+                          <a href="#">Create TestCase</a>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                </ul>
+                <ul class="nav nav-list tree">
+                  <li>
+                    <ul class="nav nav-list tree">
+                      <li>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">Test Case-1
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <a href="#">Create TestStep</a>
+                            </li>
+                            <li>
+                              <a href="#" class="tree-toggler">Collapse</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <ul class="nav nav-list tree">
+                          <li>
+                            <a href="#">Test Step-11<i class="fa fa-fw fa-lg fa-remove text-danger"></i></a>
+                          </li>
+                          <li>
+                            <a href="#">Test Step-21<i class="fa fa-fw fa-lg fa-remove text-danger"></i></a>
+                          </li>
+                        </ul>
+                      </li>
+                      <li>
+                        <div class="btn-group">
+                          <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">Test Case-2
+                            <span class="caret"></span>
+                          </button>
+                          <ul class="dropdown-menu">
+                            <li>
+                              <a href="#">Create TestStep</a>
+                            </li>
+                            <li>
+                              <a href="#" class="tree-toggler">Collapse</a>
+                            </li>
+                          </ul>
+                        </div>
+                        <ul class="nav nav-list tree">
+                          <li>
+                            <a href="#">Test Step-12<i class="fa fa-fw fa-lg fa-remove text-danger"></i></a>
+                          </li>
+                          <li>
+                            <a href="#">Test Step-22<i class="fa fa-fw fa-lg fa-remove text-danger"></i></a>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li class="divider"></li>
+            </ul>
+          </div>
+          <div class="col-md-9">
+            <div>
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation">
+                  <a href="#home" aria-controls="home" role="tab" data-toggle="tab">HTML</a>
+                </li>
+                <li role="presentation" class="active">
+                  <a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Settings</a>
+                </li>
+                <li role="presentation">
+                  <a href="#ddata" aria-controls="ddata" role="tab" data-toggle="tab">Data</a>
+                </li>
+              </ul>
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane" id="home">Home</div>
+                <div role="tabpanel" class="tab-pane active" id="settings">
+                  <div class="row">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                      <!-- Skip -->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                          <h4 class="panel-title">
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#id_skiparea"
+                            aria-expanded="true" aria-controls="collapseOne">
+          Skip
+        </a>
+                          </h4>
+                        </div>
+                        <div id="id_skiparea" class="panel-collapse collapse in" role="tabpanel"
+                        aria-labelledby="headingOne">
+                          <div class="panel-body">Skip content</div>
+                        </div>
+                      </div>
+                      <!-- Pre Handle -->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                          <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                            href="#id_prehandle" aria-expanded="false" aria-controls="collapseTwo">
+          Pre Handle
+        </a>
+                          </h4>
+                        </div>
+                        <div id="id_prehandle" class="panel-collapse collapse" role="tabpanel"
+                        aria-labelledby="headingTwo">
+                          <div class="panel-body">Pre-Handle content</div>
+                        </div>
+                      </div>
+                      <!-- UI Elements -->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                          <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                            href="#id_uielement" aria-expanded="false" aria-controls="collapseTwo">
+          UI Elements
+        </a>
+                          </h4>
+                        </div>
+                        <div id="id_uielement" class="panel-collapse collapse" role="tabpanel"
+                        aria-labelledby="headingTwo">
+                          <div class="panel-body">UI Elements content</div>
+                        </div>
+                      </div>
+                      <!-- Action-->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingTwo">
+                          <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                            href="#id_action" aria-expanded="false" aria-controls="collapseTwo">
+          Action
+        </a>
+                          </h4>
+                        </div>
+                        <div id="id_action" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                          <div class="panel-body">Action content</div>
+                        </div>
+                      </div>
+                      <!--Post Handle -->
+                      <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingThree">
+                          <h4 class="panel-title">
+                            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
+                            href="#id_posthandle" aria-expanded="false" aria-controls="collapseThree">
+          Post Handle
+        </a>
+                          </h4>
+                        </div>
+                        <div id="id_posthandle" class="panel-collapse collapse" role="tabpanel"
+                        aria-labelledby="headingThree">
+                          <div class="panel-body">Post handle content</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="ddata">Data content</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+
+</html>
