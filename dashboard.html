@@ -41,7 +41,7 @@
     <div class="section">
       <div class="container">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-3 text-left">
             <ul class="nav nav-list">
               <li>
                 <label class="nav-header">Project</label>
@@ -76,6 +76,9 @@
                             <li>
                               <a href="#" class="tree-toggler">Collapse</a>
                             </li>
+                            <li>
+                              <a href="#">Delete</a>
+                            </li>
                           </ul>
                         </div>
                         <ul class="nav nav-list tree">
@@ -87,6 +90,7 @@
                           </li>
                         </ul>
                       </li>
+                      <li role="separator" class="divider"></li>
                       <li>
                         <div class="btn-group">
                           <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown"
@@ -99,6 +103,9 @@
                             </li>
                             <li>
                               <a href="#" class="tree-toggler">Collapse</a>
+                            </li>
+                            <li>
+                              <a href="#">Delete</a>
                             </li>
                           </ul>
                         </div>
@@ -141,37 +148,122 @@
                       <!-- Skip -->
                       <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
-                          <h4 class="panel-title">
+                          <h4>
                             <a role="button" data-toggle="collapse" data-parent="#accordion" href="#id_skiparea"
-                            aria-expanded="true" aria-controls="collapseOne">
-          Skip
-        </a>
+                            aria-expanded="true" aria-controls="collapseOne">Skip</a>
                           </h4>
                         </div>
                         <div id="id_skiparea" class="panel-collapse collapse in" role="tabpanel"
                         aria-labelledby="headingOne">
-                          <div class="panel-body">Skip content</div>
+                          <div class="panel-body">
+                            <form class="form-horizontal" role="form">
+                              <div class="form-group">
+                                <div class="col-lg-6">
+                                  <div class="input-group">
+                                    <input type="text" class="form-control" aria-label="...">
+                                    <div class="input-group-btn">
+                                      <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                      aria-haspopup="true" aria-expanded="false">By
+                                        <span class="caret"></span>
+                                      </button>
+                                      <ul class="dropdown-menu dropdown-menu-right">
+                                        <li>
+                                          <a href="#">XPath</a>
+                                        </li>
+                                        <li>
+                                          <a href="#">JS</a>
+                                        </li>
+                                        <li>
+                                          <a href="#">Variable</a>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <!-- /btn-group -->
+                                  </div>
+                                  <!-- /input-group -->
+                                </div>
+                                <!-- /.col-lg-6 -->
+                                <div class="col-sm-6">
+                                  <input type="text" class="form-control" id="id_skipvalue" placeholder="skip value">
+                                </div>
+                              </div>
+                            </form>
+                          </div>
                         </div>
                       </div>
                       <!-- Pre Handle -->
-                      <div class="panel panel-default">
+                      <div class="btn-link panel panel-default">
                         <div class="panel-heading" role="tab" id="headingTwo">
-                          <h4 class="panel-title">
+                          <h4>
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
-                            href="#id_prehandle" aria-expanded="false" aria-controls="collapseTwo">
-          Pre Handle
-        </a>
+                            href="#id_prehandle" aria-expanded="false" aria-controls="collapseTwo">Pre Handle</a>
                           </h4>
                         </div>
                         <div id="id_prehandle" class="panel-collapse collapse" role="tabpanel"
                         aria-labelledby="headingTwo">
-                          <div class="panel-body">Pre-Handle content</div>
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="col-sm-6">
+                                <input type="text" class="form-control" id="id_varname" placeholder="variable name">
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" aria-label="...">
+                                  <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">By
+                                      <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                      <li>
+                                        <a href="#">XPath</a>
+                                      </li>
+                                      <li>
+                                        <a href="#">JS</a>
+                                      </li>
+                                      <li>
+                                        <a href="#">Variable</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" class="form-control" id="id_varname" placeholder="variable name">
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" aria-label="...">
+                                  <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">By
+                                      <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                      <li>
+                                        <a href="#">XPath</a>
+                                      </li>
+                                      <li>
+                                        <a href="#">JS</a>
+                                      </li>
+                                      <li>
+                                        <a href="#">Variable</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <!-- /btn-group -->
+                                </div>
+                                <!-- /input-group -->
+                              </div>
+                              <!-- /.col-lg-6 -->
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <!-- UI Elements -->
                       <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingTwo">
-                          <h4 class="panel-title">
+                          <h4>
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                             href="#id_uielement" aria-expanded="false" aria-controls="collapseTwo">
           UI Elements
@@ -184,9 +276,9 @@
                         </div>
                       </div>
                       <!-- Action-->
-                      <div class="panel panel-default">
+                      <div class="btn-link panel panel-default">
                         <div class="panel-heading" role="tab" id="headingTwo">
-                          <h4 class="panel-title">
+                          <h4>
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                             href="#id_action" aria-expanded="false" aria-controls="collapseTwo">
           Action
@@ -194,13 +286,35 @@
                           </h4>
                         </div>
                         <div id="id_action" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                          <div class="panel-body">Action content</div>
+                          <div class="panel-body">
+                            <div class="form-group col-lg-6">
+                              <div class="input-group">
+                                <input type="text" class="form-control" aria-label="...">
+                                <div class="input-group-btn">
+                                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                  aria-haspopup="true" aria-expanded="false">By
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                      <a href="#">XPath</a>
+                                    </li>
+                                    <li>
+                                      <a href="#">JS</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                                <!-- /btn-group -->
+                              </div>
+                              <!-- /input-group -->
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <!--Post Handle -->
                       <div class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingThree">
-                          <h4 class="panel-title">
+                          <h4>
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion"
                             href="#id_posthandle" aria-expanded="false" aria-controls="collapseThree">
           Post Handle
@@ -209,7 +323,63 @@
                         </div>
                         <div id="id_posthandle" class="panel-collapse collapse" role="tabpanel"
                         aria-labelledby="headingThree">
-                          <div class="panel-body">Post handle content</div>
+                          <div class="panel-body">
+                            <div class="form-group">
+                              <div class="col-sm-6">
+                                <input type="text" class="form-control" id="id_varname" placeholder="variable name">
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" aria-label="...">
+                                  <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">By
+                                      <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                      <li>
+                                        <a href="#">XPath</a>
+                                      </li>
+                                      <li>
+                                        <a href="#">JS</a>
+                                      </li>
+                                      <li>
+                                        <a href="#">Variable</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-sm-6">
+                                <input type="text" class="form-control" id="id_varname" placeholder="variable name">
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="input-group">
+                                  <input type="text" class="form-control" aria-label="...">
+                                  <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">By
+                                      <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right">
+                                      <li>
+                                        <a href="#">XPath</a>
+                                      </li>
+                                      <li>
+                                        <a href="#">JS</a>
+                                      </li>
+                                      <li>
+                                        <a href="#">Variable</a>
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <!-- /btn-group -->
+                                </div>
+                                <!-- /input-group -->
+                              </div>
+                              <!-- /.col-lg-6 -->
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
