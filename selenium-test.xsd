@@ -1,0 +1,772 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="selenium-test">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="selenium-config" maxOccurs="1"
+					minOccurs="0" />
+				<xs:element ref="imports" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="constantsMaps" minOccurs="0" />
+				<xs:element ref="param-maps" minOccurs="0" />
+				<xs:element ref="steps" maxOccurs="unbounded" minOccurs="0" />
+				<xs:element ref="main-flow" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<!-- imports -->
+	<xs:element name="imports">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="import" maxOccurs="unbounded" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="dir" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="import">
+		<xs:complexType>
+			<xs:attribute type="xs:string" name="src" />
+		</xs:complexType>
+	</xs:element>
+
+	<!-- selenium-config -->
+	<xs:element name="selenium-config">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="application-url" />
+				<xs:element ref="login-credentials" />
+				<xs:element ref="alternate-login-credentials" minOccurs="0" />
+				<xs:element ref="log4j-config-file" minOccurs="0" />
+				<xs:element ref="junit-report-folder" minOccurs="0" />
+				<xs:element ref="screenshots-folder" minOccurs="0" />
+				<xs:element ref="desired-capabilities" minOccurs="0" />
+				<xs:element ref="db-details" minOccurs="0" />
+				<xs:element ref="proxy-details"  minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="result-details"  minOccurs="0" maxOccurs="1"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="webdriver-path" type="xs:string" />
+	<xs:element name="browser-name" type="xs:string" />
+	<xs:element name="log4j-config-file" type="xs:string" />
+	<xs:element name="junit-report-folder" type="xs:string" />
+	<xs:element name="screenshots-folder" type="xs:string" />
+	<xs:element name="application-url" type="xs:string" />
+	<xs:element name="login-credentials">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="username" />
+				<xs:element ref="password" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="securitykey" minOccurs="0" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="alternate-login-credentials">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="username" />
+				<xs:element ref="password" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="securitykey" minOccurs="0" maxOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="db-details">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="drivername" minOccurs="0" maxOccurs="1"/>
+				<xs:element ref="url" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="username" />
+				<xs:element ref="password" minOccurs="0" maxOccurs="1" />
+				<xs:element ref="catalog" minOccurs="0" />
+				<xs:element ref="schema" minOccurs="0"  />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="username" type="xs:string" />
+	<xs:element name="password" type="xs:string" />
+	<xs:element name="drivername" type="xs:string" />
+	<xs:element name="catalog" type="xs:string" />
+	<xs:element name="schema"  type="xs:string" />
+	<xs:element name="url" type="xs:string" />
+	<xs:element name="securitykey" type="xs:string" />
+
+	<xs:element name="desired-capabilities">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="capability" maxOccurs="unbounded"
+					minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute name="browser" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="IE" />
+						<xs:enumeration value="FF" />
+						<xs:enumeration value="Chrome" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="capability">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute type="xs:string" name="name" use="optional" />
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="proxy-details">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="proxy" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="default-proxy-id"  use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="proxy">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="host" type="xs:string" />
+				<xs:element name="port" type="xs:string" />
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="id"  use="optional"/>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="result-details">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="resultTitle" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- constantsMaps -->
+	<xs:element name="constantsMaps">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="constantsMap" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="constantsMap">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="constant" maxOccurs="unbounded"
+					minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="name" />
+			<xs:attribute type="xs:string" name="flip" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="constant">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="key" />
+				<xs:element ref="value" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- steps -->
+
+	<xs:element name="steps">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="step" />
+					<xs:element ref="sub-step" />
+					<xs:element ref="recursive-step" />
+					<xs:element ref="step-group" />
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- param-maps -->
+	<xs:element name="param-maps">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="param-map" maxOccurs="unbounded"
+					minOccurs="0">
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="excel-src" use="optional" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="param-map">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="param" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="param">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute type="xs:string" name="name" use="optional" />
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<!-- main-flow -->
+	<xs:element name="main-flow">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="step" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="recursive-step" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="step-group" minOccurs="0" maxOccurs="unbounded" />
+			</xs:choice>
+			<xs:attribute ref="capture-screenshot" use="optional" />
+			<xs:attribute type="xs:float" name="wait-time-factor"
+				use="optional" />
+			<xs:attribute type="xs:int" name="retry" use="optional" />
+			<xs:attribute type="xs:string" name="use-proxy" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:attribute name="capture-screenshot">
+		<xs:simpleType>
+			<xs:restriction base="xs:string">
+				<xs:enumeration value="none" />
+				<xs:enumeration value="all" />
+				<xs:enumeration value="pageload" />
+				<xs:enumeration value="action" />
+				<xs:enumeration value="expectedresult" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:attribute>
+
+	<xs:element name="step-group">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="skip" minOccurs="0" maxOccurs="1" />
+				<xs:element name="popup" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="expected-result" minOccurs="0" />
+						</xs:sequence>
+						<xs:attribute type="xs:string" name="title" />
+						<xs:attribute type="xs:string" name="url" />
+						<xs:attribute type="xs:boolean" name="maximize" />
+						<xs:attribute type="xs:string" name="id" use="optional" />
+						<xs:attribute type="xs:string" name="ref" use="optional" />
+						<xs:attribute type="xs:int" name="wait-for-init" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="iframe" minOccurs="0" maxOccurs="1">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="find" minOccurs="0" />
+						</xs:sequence>
+						<xs:attribute type="xs:string" name="id" use="optional" />
+						<xs:attribute type="xs:string" name="ref" use="optional" />
+					</xs:complexType>
+				</xs:element>
+				<xs:element ref="step" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element ref="recursive-step" minOccurs="0" maxOccurs="unbounded" />
+			</xs:choice>
+			<xs:attribute type="xs:string" name="id" use="optional" />
+			<xs:attribute type="xs:string" name="ref" use="optional" />
+			<xs:attribute type="xs:boolean" name="new-browser" use="optional" />
+			<xs:attribute type="xs:string" name="use-proxy" use="optional" />
+			<xs:attribute type="xs:boolean" name="maximize" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="step">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="iframe" minOccurs="0" />
+				<xs:element ref="skip" minOccurs="0" />
+				<xs:element ref="entry" minOccurs="0" />
+				<xs:element ref="execute" minOccurs="0" />
+				<xs:element ref="exit" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="id" use="required" />
+			<xs:attribute type="xs:int" name="wait" use="optional" />
+			<xs:attribute type="xs:int" name="retry" use="optional" />
+			<xs:attribute type="xs:string" name="ref" use="optional" />
+			<xs:attribute type="xs:boolean" name="new-browser" use="optional" />
+			<xs:attribute type="xs:boolean" name="execute-once" use="optional" />
+			<xs:attribute type="xs:string" name="use-proxy" use="optional" />
+			<xs:attribute ref="capture-screenshot" use="optional" />
+			<xs:attribute type="xs:boolean" name="maximize" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="recursive-step">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="entry" minOccurs="0" />
+				<xs:element ref="recursion" minOccurs="0" />
+				<xs:element ref="exit" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="id" use="optional" />
+			<xs:attribute type="xs:string" name="ref" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="iframe">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" minOccurs="1" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="skip">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find-matches" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="entry">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="page-load" minOccurs="0" />
+				<xs:element ref="set-values" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="wait" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="execute">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="windows-prompt" minOccurs="0" />
+				<xs:element ref="inputs" minOccurs="0" />
+				<xs:element ref="action" minOccurs="0" />
+				<xs:element ref="expected-result" minOccurs="0"
+					maxOccurs="unbounded" />
+				<xs:element ref="page-refresh" minOccurs="0" />
+				<xs:element ref="sub-step" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="execute-substep">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="inputs" minOccurs="0" />
+				<xs:element ref="action" minOccurs="0" />
+				<xs:element ref="expected-result" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="exit">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="set-values" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="recursion">
+		<xs:complexType>
+			<xs:choice maxOccurs="unbounded" minOccurs="0">
+				<xs:element ref="break" />
+				<xs:element ref="step" />
+				<xs:element ref="step-group" />
+				<xs:element ref="recursive-step" />
+			</xs:choice>
+			<xs:attribute type="xs:string" name="elements"
+				use="optional" />
+			<xs:attribute type="xs:string" name="element"
+				use="optional" />
+			<xs:attribute type="xs:string" name="index"
+				use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="find-matches">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" minOccurs="0" />
+				<xs:element ref="matches" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+
+	<xs:element name="page-load">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="page-url" />
+				<xs:element ref="wait-for-load" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="set-values">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="set-value" maxOccurs="unbounded"
+					minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="set-value">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find-matches" maxOccurs="unbounded"
+					minOccurs="0" />
+				<xs:element ref="find" minOccurs="0" />
+				<xs:element name="value">
+					<xs:complexType>
+						<xs:simpleContent>
+							<xs:extension base="xs:string">
+								<xs:attribute name="sum" type="xs:boolean" use="optional" />
+								<xs:attribute name="concat" type="xs:boolean" use="optional" />
+								<xs:attribute name="delimeter" type="xs:string" use="optional" />
+							</xs:extension>
+						</xs:simpleContent>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="name" use="optional" />
+			<xs:attribute name="type" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="array" />
+						<xs:enumeration value="list" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="scope" use="optional">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="request" />
+						<xs:enumeration value="session" />
+						<xs:enumeration value="application" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute type="xs:boolean" name="write-output-file"
+				use="optional" />
+			<xs:attribute type="xs:boolean" name="param-for-next-flow"
+				use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="windows-prompt">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="text" />
+					<xs:element ref="button" />
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="inputs">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice minOccurs="0" maxOccurs="unbounded">
+					<xs:element ref="text" />
+					<xs:element ref="radio" />
+					<xs:element ref="checkbox" />
+					<xs:element ref="select" />
+					<xs:element ref="link" />
+					<xs:element ref="button" />
+					<xs:element ref="mouseover" />
+					<xs:element ref="file-operation" />
+				</xs:choice>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="text">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" maxOccurs="1" minOccurs="1" />
+				<xs:element ref="value" maxOccurs="1" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:byte" name="wait" use="optional" />
+			<xs:attribute type="xs:boolean" name="keystroke" use="optional" />
+			<xs:attribute type="xs:boolean" name="autocomplete" use="optional" />
+			<xs:attribute type="xs:boolean" name="submit" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="checkbox">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" maxOccurs="1" minOccurs="1" />
+			</xs:sequence>
+			<xs:attribute type="xs:byte" name="wait" use="optional" />
+			<xs:attribute type="xs:boolean" name="keystroke" use="optional" />
+			<xs:attribute type="xs:boolean" name="uncheck" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="radio">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" maxOccurs="1" minOccurs="1" />
+				<xs:element ref="value" maxOccurs="1" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:byte" name="wait" use="optional" />
+			<xs:attribute type="xs:boolean" name="keystroke" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="select">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" maxOccurs="1" minOccurs="1" />
+				<xs:element ref="value" maxOccurs="1" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:byte" name="wait" use="optional" />
+			<xs:attribute type="xs:byte" name="select-index" use="optional" />
+			<xs:attribute type="xs:boolean" name="select-label" use="optional" />
+			<xs:attribute type="xs:boolean" name="keystroke" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="mouseover">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" maxOccurs="1" minOccurs="1" />
+			</xs:sequence>
+			<xs:attribute type="xs:byte" name="wait" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="find">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="by" use="required">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="id" />
+								<xs:enumeration value="name" />
+								<xs:enumeration value="value" />
+								<xs:enumeration value="class" />
+								<xs:enumeration value="css" />
+								<xs:enumeration value="xpath" />
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:attribute>
+					<xs:attribute type="xs:string" name="id" use="optional" />
+					<xs:attribute type="xs:boolean" name="iframe" use="optional" />
+					<xs:attribute type="xs:boolean" name="invisible" use="optional" />
+					<xs:attribute type="xs:boolean" name="multiple" use="optional" />
+					<xs:attribute type="xs:int" name="match-indexes" use="optional" />
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="matches">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="test" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="test" type="xs:string" />
+	<xs:element name="key" type="xs:string" />
+	<xs:element name="value">
+		<xs:complexType>
+			<xs:simpleContent>
+				<xs:extension base="xs:string">
+					<xs:attribute name="date-format" type="xs:string" use="optional" />
+					<xs:attribute name="not-same" type="xs:boolean" use="optional" />
+				</xs:extension>
+			</xs:simpleContent>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="action">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="button" minOccurs="0" />
+				<xs:element ref="link" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="button">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" />
+				<xs:element ref="value" maxOccurs="1" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:int" name="wait" use="optional" />
+			<xs:attribute type="xs:boolean" name="keystroke" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="link">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" />
+			</xs:sequence>
+			<xs:attribute type="xs:int" name="wait" use="optional" />
+			<xs:attribute type="xs:boolean" name="keystroke" use="optional" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="file-operation">			
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find"  maxOccurs="1" minOccurs="0" />
+				<xs:element name="uploadPath" type="xs:string"  maxOccurs="1" minOccurs="0" />
+				<xs:element ref="value" maxOccurs="1" minOccurs="0" />
+				<xs:element ref="button" maxOccurs="1" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="operation-type" use="required" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="break">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find-matches" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="page-url" type="xs:string" />
+
+	<xs:element name="wait-for-load">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="find" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+			<xs:attribute type="xs:int" name="timeout" use="optional" />
+			<xs:attribute type="xs:boolean" name="visibility" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="page-refresh">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="wait-for-load" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="expected-result">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="wait-for-load" maxOccurs="unbounded"
+					minOccurs="0" />
+				<xs:element ref="find-matches" maxOccurs="unbounded"
+					minOccurs="0" />
+				<xs:element ref="db-verifications" maxOccurs="1"
+					minOccurs="0" />
+				<xs:element ref="popup" minOccurs="0" />
+				<xs:element ref="error" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:int" name="wait" use="optional" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="error">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element type="xs:string" name="message" minOccurs="1" />
+				<xs:element type="xs:string" name="args" minOccurs="0" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="popup">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="expected-result" minOccurs="0" />
+				<xs:element ref="sub-step" minOccurs="0" />
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="title" />
+			<xs:attribute type="xs:string" name="url" />
+			<xs:attribute type="xs:boolean" name="maximize" />
+			<xs:attribute type="xs:int" name="wait-for-init" />
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="sub-step">
+		<xs:complexType mixed="true">
+			<xs:sequence>
+				<xs:element ref="iframe" minOccurs="0" />
+				<xs:element ref="skip" minOccurs="0" />
+				<xs:element ref="entry" minOccurs="0" />
+				<xs:element name="execute" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="windows-prompt" minOccurs="0" />
+							<xs:element ref="inputs" minOccurs="0" />
+							<xs:element ref="action" minOccurs="0" />
+							<xs:element ref="expected-result" minOccurs="0" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="exit" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element ref="set-values" />
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute type="xs:string" name="id" use="optional" />
+			<xs:attribute type="xs:string" name="ref" use="optional" />
+			<xs:attribute type="xs:int" name="retry" use="optional" />
+			<xs:attribute type="xs:int" name="wait" use="optional" />
+			<xs:attribute ref="capture-screenshot" use="optional" />
+			<xs:attribute type="xs:boolean" name="ignore-error" use="optional" />
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="db-verifications">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="db-verification" maxOccurs="unbounded" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	
+	<xs:element name="db-verification">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="query" type="xs:string" />
+				<xs:element ref="param-list" maxOccurs="unbounded"
+					minOccurs="0" />
+				<xs:element ref="find-matches" maxOccurs="unbounded"
+					minOccurs="0" />
+				<xs:element name="result-row-count" type="xs:string" minOccurs="0" />
+				<xs:element ref="error" minOccurs="0" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>	
+	
+	<xs:element name="param-list">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="param" maxOccurs="unbounded" />
+			</xs:sequence>
+		</xs:complexType>z
+	</xs:element>
+	
+</xs:schema>
