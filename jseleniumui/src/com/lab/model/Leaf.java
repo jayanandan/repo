@@ -4,6 +4,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
 import com.lab.util.ApplicationUtil.LeafType;
+import com.lab.util.ApplicationUtil.ScriptType;
 
 public class Leaf{
 
@@ -13,6 +14,7 @@ public class Leaf{
 	public static final Leaf MAINFLW_LEAF = new Leaf(LeafType.MAIN_FLOWS);
 	
 	private LeafType leafType;
+	private ScriptType scriptType=ScriptType.TOP;
 	private String leafName;
 	private TreeNode node;
 	
@@ -48,6 +50,14 @@ public class Leaf{
 
 	public TreeNode getNode() {
 		return node;
+	}
+
+	public ScriptType getScriptType() {
+		return scriptType;
+	}
+
+	public void setScriptType(ScriptType scriptType) {
+		this.scriptType = scriptType;
 	}
 
 	@Override

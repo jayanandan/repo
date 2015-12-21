@@ -17,8 +17,6 @@ public class ApplicationUtil {
 			System.exit(1);
 		}
 	}
-
-	
 	
 	public static enum LeafType{
 		PROJECT("menu.project"),STEPS("menu.steps"),STEP_GROUPS("menu.stepgroups"),MAIN_FLOWS("menu.mainflows");
@@ -57,7 +55,6 @@ public class ApplicationUtil {
 	}
 	
 	public static enum ScriptType{
-		STEP,SUB_STEP,REC_STEP,STEP_GRP,MAIN_FLW;
+		TOP,STEP,SUB_STEP,REC_STEP,STEP_GRP,MAIN_FLW;
 	}
-	
 }

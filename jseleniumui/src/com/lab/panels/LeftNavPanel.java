@@ -50,6 +50,8 @@ public class LeftNavPanel extends JPanel {
 		((DefaultMutableTreeNode) PROJECT_LEAF.getNode()).add((DefaultMutableTreeNode) MAINFLW_LEAF.getNode());
 		
 		leftNavTree = new JTree(PROJECT_LEAF.getNode());
+		leftNavTree.setVisible(false);
+		leftNavTree.setLayout(new GridLayout(0, 1));
 		leftNavTree.setExpandsSelectedPaths(true);
 	}
 
@@ -58,16 +60,19 @@ public class LeftNavPanel extends JPanel {
 	 */
 	public LeftNavPanel() {
 		setLayout(new BorderLayout(1, 1));
-
+		JScrollPane scrollPane = new JScrollPane(leftNavTree);
+		add(scrollPane, BorderLayout.CENTER);
+		//intialize(null);
+	}
+	
+	public void intialize(String projName){
 		
-		leftNavTree.addTreeSelectionListener(new TreeSelectionListener() {
-
-			public void valueChanged(TreeSelectionEvent e) {
-
-			}
-		});
-		leftNavTree.setLayout(new GridLayout(0, 1));
-
+		((DefaultMutableTreeNode)STEPS_LEAF.getNode()).removeAllChildren();
+		((DefaultMutableTreeNode)STEPGRP_LEAF.getNode()).removeAllChildren();
+		((DefaultMutableTreeNode)MAINFLW_LEAF.getNode()).removeAllChildren();
+		
+		leftNavTree.setVisible(true);
+		PROJECT_LEAF.setLeafName(projName);
 		// leftNavTree.setEditable(true);
 		leftNavTree.getSelectionModel().setSelectionMode(TreeSelectionModel.SINGLE_TREE_SELECTION);
 
@@ -109,10 +114,10 @@ public class LeftNavPanel extends JPanel {
 
 			}
 		});
-
-		JScrollPane scrollPane = new JScrollPane(leftNavTree);
-		add(scrollPane, BorderLayout.CENTER);
-
+		
+		DefaultTreeModel root = (DefaultTreeModel )leftNavTree.getModel();
+		root.reload();
+		
 	}
 	
 	public static boolean addLeaf(Leaf leaf){

@@ -10,11 +10,13 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
+import jseleniumui.ApplicationUI;
+
 import com.lab.model.Leaf;
 import com.lab.panels.LeftNavPanel;
 import com.lab.util.ApplicationUtil.LeafAction;
 import com.lab.util.ApplicationUtil.LeafType;
-
+import com.lab.util.ApplicationUtil.ScriptType;
 
 public class MenuAction extends JMenuItem{
 	
@@ -31,29 +33,33 @@ public class MenuAction extends JMenuItem{
 				
 				switch (action) {
 				case NEW_PROJECT:{
-					JOptionPane.showInputDialog(getParent(e),"Please enter the project name","Name",JOptionPane.PLAIN_MESSAGE);
+					String projName = JOptionPane.showInputDialog(getParent(e),"Please enter the project name","Name",JOptionPane.PLAIN_MESSAGE);
+					ApplicationUI.leftNanPanel.intialize(projName);
 					break;
 				}
 				case NEW_STEP:{
 					String stepName = JOptionPane.showInputDialog(getParent(e),"Please enter the step name","Name",JOptionPane.PLAIN_MESSAGE);
-					Leaf leaf = new Leaf(LeafType.STEPS, stepName);
-					LeftNavPanel.addLeaf(leaf);
+					addLeaf(LeafType.STEPS,ScriptType.STEP, stepName);
 					break;
 				}
 				case NEW_SUB_STEP:{
-					JOptionPane.showInputDialog(getParent(e),"Please enter the substep name","Name",JOptionPane.PLAIN_MESSAGE);
+					String stepName = JOptionPane.showInputDialog(getParent(e),"Please enter the substep name","Name",JOptionPane.PLAIN_MESSAGE);
+					addLeaf(LeafType.STEPS,ScriptType.STEP_GRP, stepName);
 					break;
 				}
 				case NEW_REC_STEP:{
-					JOptionPane.showInputDialog(getParent(e),"Please enter the recursive name","Name",JOptionPane.PLAIN_MESSAGE);
+					String stepName = JOptionPane.showInputDialog(getParent(e),"Please enter the recursive name","Name",JOptionPane.PLAIN_MESSAGE);
+					addLeaf(LeafType.STEPS,ScriptType.REC_STEP,stepName);
 					break;
 				}
 				case NEW_STEP_GRP:{
-					JOptionPane.showInputDialog(getParent(e),"Please enter the stepgroup name","Name",JOptionPane.PLAIN_MESSAGE);
+					String stepName = JOptionPane.showInputDialog(getParent(e),"Please enter the stepgroup name","Name",JOptionPane.PLAIN_MESSAGE);
+					addLeaf(LeafType.STEP_GROUPS,ScriptType.STEP_GRP,stepName);
 					break;
 				}
 				case NEW_MAIN_FLW:{
-					JOptionPane.showInputDialog(getParent(e),"Please enter the mainflow name","Name",JOptionPane.PLAIN_MESSAGE);					
+					String stepName = JOptionPane.showInputDialog(getParent(e),"Please enter the mainflow name","Name",JOptionPane.PLAIN_MESSAGE);
+					addLeaf(LeafType.MAIN_FLOWS,ScriptType.MAIN_FLW,stepName);
 					break;
 				}
 				default:
@@ -63,6 +69,12 @@ public class MenuAction extends JMenuItem{
 			}
 		});
 	}	
+	
+	private boolean addLeaf(LeafType lType,ScriptType scriptType,String name){
+		Leaf leaf = new Leaf(lType, name);
+		leaf.setScriptType(scriptType);
+		return LeftNavPanel.addLeaf(leaf);
+	}
 	
 	private Component getParent(ActionEvent e){
 		JMenuItem menuItem = (JMenuItem) e.getSource();
