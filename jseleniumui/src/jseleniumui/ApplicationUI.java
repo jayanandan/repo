@@ -23,7 +23,7 @@ public class ApplicationUI {
 	private static final JMenuBar menuBar = new JMenuBar();
 	private static final JMenu mnFile = new JMenu("File");
 	
-	public static final LeftNavPanel leftNanPanel = new LeftNavPanel();
+	public static final LeftNavPanel leftNavPanel = new LeftNavPanel();
 
 	static{
 		MenuAction mntmNewProject = new MenuAction(LeafAction.NEW_PROJECT);
@@ -69,7 +69,7 @@ public class ApplicationUI {
 		JSplitPane splitPane = new JSplitPane();
 		frame.getContentPane().add(splitPane);
 		
-		splitPane.setLeftComponent(leftNanPanel);
+		splitPane.setLeftComponent(leftNavPanel);
 //		leftPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel rightPanel = new JPanel();

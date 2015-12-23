@@ -40,7 +40,7 @@ public class MenuAction extends JMenuItem{
 					
 					String projName = JOptionPane.showInputDialog(getParent(e),ApplicationUtil.properties.getProperty(Constants.NEW_PROJ_MSG),StringUtils.EMPTY,JOptionPane.PLAIN_MESSAGE);
 					if(StringUtils.isNotBlank(projName) && StringUtils.isAlphaSpace(projName)){
-						ApplicationUI.leftNanPanel.intialize(projName);						
+						ApplicationUI.leftNavPanel.intialize(projName);						
 					}
 					break;
 				}

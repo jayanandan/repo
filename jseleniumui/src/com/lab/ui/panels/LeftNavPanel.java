@@ -28,6 +28,7 @@ import com.lab.actions.MenuAction;
 import com.lab.model.Leaf;
 import com.lab.util.ApplicationUtil.LeafAction;
 import com.lab.util.ApplicationUtil.LeafType;
+import com.lab.util.ApplicationUtil.ScriptType;
 import com.lab.util.CTreeCellRenderer;
 
 public class LeftNavPanel extends JPanel {
@@ -90,35 +91,56 @@ public class LeftNavPanel extends JPanel {
 			public void mouseClicked(MouseEvent e) {
 
 				int index = leftNavTree.getRowForLocation(e.getX(), e.getY());
-				if (SwingUtilities.isRightMouseButton(e) && index != -1) {
-
+				if(index != -1){
 					TreePath path = leftNavTree.getPathForLocation(e.getX(), e.getY());
-
 					leftNavTree.setSelectionPath(path);
-
+					
 					DefaultMutableTreeNode selectedNode = (DefaultMutableTreeNode) path.getLastPathComponent();
 					Leaf leaf = (Leaf) selectedNode.getUserObject();
-
-					if (leaf.getLeafType() != LeafType.PROJECT  
-							&& selectedNode.getParent() == PROJECT_LEAF.getNode()) {
-						
-						switch (leaf.getLeafType()) {
-						case STEPS: {
-							STEPS_POPUP_MENU.show(leftNavTree, e.getX(), e.getY());
+					
+					if (SwingUtilities.isRightMouseButton(e)) {
+						if (leaf.getLeafType() != LeafType.PROJECT  
+								&& selectedNode.getParent() == PROJECT_LEAF.getNode()) {
+							
+							switch (leaf.getLeafType()) {
+								case STEPS: {
+									STEPS_POPUP_MENU.show(leftNavTree, e.getX(), e.getY());
+									break;
+								}
+								case STEP_GROUPS: {
+									STEPGRP_POPUP_MENU.show(leftNavTree, e.getX(), e.getY());
+									break;
+								}
+								case MAIN_FLOWS: {
+									MF_POPUP_MENU.show(leftNavTree, e.getX(), e.getY());
+									break;
+								}
+							}
+						}
+					}else{
+						ScriptType scriptType = leaf.getScriptType();
+						switch (scriptType) {
+						case STEP:{
+							System.out.println("step");
+							break;							
+						}case SUB_STEP:{
+							System.out.println("sub step");
+							break;							
+						}case REC_STEP:{
+							System.out.println("rec step");
+							break;							
+						}case STEP_GRP:{
+							System.out.println("step group ");
+							break;							
+						}case MAIN_FLW:{
+							System.out.println("main flow");
+							break;							
+						}
+						default:
 							break;
 						}
-						case STEP_GROUPS: {
-							STEPGRP_POPUP_MENU.show(leftNavTree, e.getX(), e.getY());
-							break;
-						}
-						case MAIN_FLOWS: {
-							MF_POPUP_MENU.show(leftNavTree, e.getX(), e.getY());
-							break;
-						}
-						}
-					}
-				}
-
+					}//if-else
+				}//if
 			}
 		});
 		

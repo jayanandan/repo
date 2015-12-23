@@ -1,35 +1,28 @@
 package com.lab.ui.panels;
 
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSeparator;
-import javax.swing.JTabbedPane;
-import javax.swing.ScrollPaneConstants;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.lang.reflect.InvocationTargetException;
 
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.sun.java.accessibility.util.SwingEventMonitor;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
 
 import jseleniumui.UIBuilder;
-
-import com.jgoodies.forms.layout.FormSpecs;
-import javax.swing.JLabel;
-import javax.swing.UIManager;
-
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import javax.swing.BoxLayout;
-import javax.swing.JFrame;
-
-import java.awt.GridLayout;
 import net.miginfocom.swing.MigLayout;
+
+import org.apache.commons.lang3.StringUtils;
+
+import com.lab.model.FindMatchModel;
+import com.lab.util.UIModelBinder;
 
 public class SkipPanel extends JPanel {
 
+	public static final String NAME = "SkipPanel";  
+	private static SkipPanel skipPanel = new SkipPanel();
 	MigLayout layout = new MigLayout("","[][][][][][][][][]","[][][]");
 	
 	/**
@@ -37,6 +30,7 @@ public class SkipPanel extends JPanel {
 	 */
 	public SkipPanel() {
 		setLayout(layout);
+		System.out.println("constructor call...");
 		initialize();
 	}
 	
@@ -48,34 +42,73 @@ public class SkipPanel extends JPanel {
 		add(UIBuilder.createSeperator(),"growx, wrap");
 		
 		add(UIBuilder.createLabel("Find"),"skip");
-		add(UIBuilder.createTxtField(),"id skip.find, width 200");
+		add(UIBuilder.createTxtField("find.value"),", width 200");
 		
 		add(UIBuilder.createLabel("By"),"skip");
-		add(UIBuilder.createComboBox(new String[]{"id","xpath","css","class","value"}),"id skip.by");
+		add(UIBuilder.createComboBox("find.by",new String[]{"id","xpath","css","class","value"}),"");
 		
 		add(UIBuilder.createLabel("index"));
-		add(UIBuilder.createTxtField(),"id skip.index,width 20,growx");
+		add(UIBuilder.createTxtField("find.index"),"width 20,growx");
 		
-		add(UIBuilder.createSeperator(JSeparator.VERTICAL),"width 5,height 50,span 3 3,split 3");
+		add(UIBuilder.createSeperator(JSeparator.VERTICAL),"width 5,height 50,span 2 2,split 3");
 		add(UIBuilder.createLabel("match"));
-		add(UIBuilder.createTxtField(),"id skip.match,width 200,wrap,growx");
+		add(UIBuilder.createTxtField("find.match"),"width 200,wrap,growx");
 		
 		add(UIBuilder.createLabel("Id"),"skip");
-		add(UIBuilder.createTxtField(),"id skip.id,span 2,growx");
+		add(UIBuilder.createTxtField("find.id"),"span 2,growx");
 		
-		add(UIBuilder.createChkBox("iframe"),"id skip.iframe,skip");
-		add(UIBuilder.createChkBox("invisible"),"id skip.invisible");
-		add(UIBuilder.createChkBox("multiple"),"id skip.multiple");
+		add(UIBuilder.createChkBox("find.iframe","iframe"),"skip");
+		add(UIBuilder.createChkBox("find.invisible","invisible"));
+		
+		add(UIBuilder.createChkBox("find.multiple","multiple"),"wrap");
+		JButton saveBtn = UIBuilder.createButton("Save");
+		add(saveBtn,"skip 1");
+		
+		saveBtn.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					System.out.println("preparing model...");
+					Object[] model = UIModelBinder.buildModel(new Class[]{FindMatchModel.class}, skipPanel);
+					
+					System.out.println(model[0]);
+					
+				} catch (InstantiationException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IllegalAccessException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (InvocationTargetException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		
 	}
 	
 	public static void main(String[] args) {
 		JFrame frame = new JFrame();
 		frame.setBounds(100, 100, 753, 480);
-		frame.add(new SkipPanel());
+		
+		frame.add(skipPanel);		
 		frame.setVisible(true);
+		
+		/*Component[] components = skipPanel.getComponents();
+		for (Component component : components) {
+			if(StringUtils.isNotEmpty(component.getName()) 
+					&& component.getName().equals("find.by")){
+				((JComboBox<String>)component).setSelectedIndex(3);
+			}
+		}*/
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
+	@Override
+	public String getName() {
+		return NAME;
+	}
 }
