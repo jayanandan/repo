@@ -1,8 +1,10 @@
 package com.lab.model;
 
+import javax.swing.ImageIcon;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
+import com.lab.util.ApplicationUtil;
 import com.lab.util.ApplicationUtil.LeafType;
 import com.lab.util.ApplicationUtil.ScriptType;
 
@@ -17,6 +19,7 @@ public class Leaf{
 	private ScriptType scriptType=ScriptType.TOP;
 	private String leafName;
 	private TreeNode node;
+	
 	
 	public Leaf(LeafType leafType,String leafName,boolean allowChildren){
 		this.node = new DefaultMutableTreeNode(this,allowChildren);
@@ -58,6 +61,21 @@ public class Leaf{
 
 	public void setScriptType(ScriptType scriptType) {
 		this.scriptType = scriptType;
+	}
+	public ImageIcon getIcon(){
+		switch(scriptType){
+			case TOP:{
+				return ApplicationUtil.CLOSE_ICON;
+			}case STEP:{
+				return ApplicationUtil.STEP_ICON;
+			}case SUB_STEP:{
+				return ApplicationUtil.SUBSTEP_ICON;
+			}case REC_STEP:{
+				return ApplicationUtil.RECSTEP_ICON;
+			}default:{
+				return ApplicationUtil.LEAF_ICON;
+			}
+		}
 	}
 
 	@Override

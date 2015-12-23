@@ -1,4 +1,4 @@
-package com.lab.panels;
+package com.lab.ui.panels;
 
 import static com.lab.model.Leaf.MAINFLW_LEAF;
 import static com.lab.model.Leaf.PROJECT_LEAF;
@@ -28,6 +28,7 @@ import com.lab.actions.MenuAction;
 import com.lab.model.Leaf;
 import com.lab.util.ApplicationUtil.LeafAction;
 import com.lab.util.ApplicationUtil.LeafType;
+import com.lab.util.CTreeCellRenderer;
 
 public class LeftNavPanel extends JPanel {
 
@@ -50,9 +51,15 @@ public class LeftNavPanel extends JPanel {
 		((DefaultMutableTreeNode) PROJECT_LEAF.getNode()).add((DefaultMutableTreeNode) MAINFLW_LEAF.getNode());
 		
 		leftNavTree = new JTree(PROJECT_LEAF.getNode());
+		leftNavTree.addTreeSelectionListener(new TreeSelectionListener() {
+			public void valueChanged(TreeSelectionEvent e) {
+				
+			}
+		});
 		leftNavTree.setVisible(false);
 		leftNavTree.setLayout(new GridLayout(0, 1));
 		leftNavTree.setExpandsSelectedPaths(true);
+		leftNavTree.setCellRenderer(new CTreeCellRenderer());
 	}
 
 	/**
@@ -148,6 +155,7 @@ public class LeftNavPanel extends JPanel {
 		root.reload();
 		
 		TreePath path = new TreePath(newNode.getPath());		
+		leftNavTree.setSelectionPath(path);
 		leftNavTree.scrollPathToVisible(path);
 		
 		return Boolean.TRUE;

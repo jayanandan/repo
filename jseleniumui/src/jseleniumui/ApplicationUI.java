@@ -12,7 +12,8 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import com.lab.actions.MenuAction;
-import com.lab.panels.LeftNavPanel;
+import com.lab.ui.panels.LeftNavPanel;
+
 import static com.lab.util.ApplicationUtil.LeafAction;;
 
 public class ApplicationUI {
