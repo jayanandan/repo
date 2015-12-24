@@ -59,7 +59,7 @@ public class treelab extends JFrame {
 		rootNode.add(childNode2);
 		rootNode.add(childNode3);
 		
-		JTree jTree = new JTree(rootNode);
+		final JTree jTree = new JTree(rootNode);
 		jTree.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

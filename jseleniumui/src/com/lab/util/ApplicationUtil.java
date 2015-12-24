@@ -1,12 +1,25 @@
 package com.lab.util;
 
+import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+
+import com.lab.model.Leaf;
+
 public class ApplicationUtil {
 	
 	public static final Properties properties = new Properties();
+	
+	public static final ImageIcon OPEN_ICON = new ImageIcon("images/24/open.png");
+	public static final ImageIcon CLOSE_ICON = new ImageIcon("images/24/close.png");
+	public static final ImageIcon STEP_ICON = new ImageIcon("images/24/step.png");
+	public static final ImageIcon SUBSTEP_ICON = new ImageIcon("images/24/substep.png");	
+	public static final ImageIcon RECSTEP_ICON = new ImageIcon("images/24/recstep.png");
+	public static final ImageIcon LEAF_ICON = new ImageIcon("images/24/step.png");
 	
 	static{
 		InputStream inputStream = ApplicationUtil.class.getResourceAsStream("/app.properties");
@@ -17,8 +30,6 @@ public class ApplicationUtil {
 			System.exit(1);
 		}
 	}
-
-	
 	
 	public static enum LeafType{
 		PROJECT("menu.project"),STEPS("menu.steps"),STEP_GROUPS("menu.stepgroups"),MAIN_FLOWS("menu.mainflows");
@@ -57,7 +68,7 @@ public class ApplicationUtil {
 	}
 	
 	public static enum ScriptType{
-		STEP,SUB_STEP,REC_STEP,STEP_GRP,MAIN_FLW;
+		TOP,STEP,SUB_STEP,REC_STEP,STEP_GRP,MAIN_FLW;
 	}
 	
 }

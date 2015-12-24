@@ -12,8 +12,9 @@ import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
 import com.lab.actions.MenuAction;
-import com.lab.panels.LeftNavPanel;
-import com.lab.util.ApplicationUtil.LeafAction;
+import com.lab.ui.panels.LeftNavPanel;
+
+import static com.lab.util.ApplicationUtil.LeafAction;;
 
 public class ApplicationUI {
 
@@ -21,6 +22,8 @@ public class ApplicationUI {
 	
 	private static final JMenuBar menuBar = new JMenuBar();
 	private static final JMenu mnFile = new JMenu("File");
+	
+	public static final LeftNavPanel leftNavPanel = new LeftNavPanel();
 
 	static{
 		MenuAction mntmNewProject = new MenuAction(LeafAction.NEW_PROJECT);
@@ -66,7 +69,7 @@ public class ApplicationUI {
 		JSplitPane splitPane = new JSplitPane();
 		frame.getContentPane().add(splitPane);
 		
-		splitPane.setLeftComponent(new LeftNavPanel());
+		splitPane.setLeftComponent(leftNavPanel);
 //		leftPanel.setLayout(new GridLayout(0, 1, 0, 0));
 		
 		JPanel rightPanel = new JPanel();
