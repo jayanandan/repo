@@ -56,7 +56,7 @@ public class UIModelBinder {
 	private static Map<Field,UIMapper> getComponentIds(Class<?> t){
 		final Map<Field,UIMapper> mappers = new HashMap<>();
 		
-		Field[] fields = t.getFields();
+		Field[] fields = t.getDeclaredFields();
 		for (Field field : fields) {
 			if(field.isAnnotationPresent(UIMapper.class)){
 				mappers.put(field,field.getAnnotation(UIMapper.class));				
@@ -72,9 +72,9 @@ public class UIModelBinder {
 		Object fieldValue = null;
 		if(mapper.handler() != null && mapper.handler().length>0){
 			handler = mapper.handler()[0].newInstance();
+			fieldValue = handler.getValue(c);
 		}
 		
-		fieldValue = handler.getValue(c);
 		
 		FieldType fieldType = mapper.type();
 		switch (fieldType) {

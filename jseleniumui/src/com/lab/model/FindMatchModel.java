@@ -76,6 +76,12 @@ public class FindMatchModel implements DataModel<Integer> {
 	}
 	public void setMatchIndexes(Integer matchIndexes) {
 		this.matchIndexes = matchIndexes;
+	}	
+	public String getTest() {
+		return test;
+	}
+	public void setTest(String test) {
+		this.test = test;
 	}
 	@Override
 	public String toString() {

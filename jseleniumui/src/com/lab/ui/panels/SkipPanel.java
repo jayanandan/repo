@@ -1,28 +1,24 @@
 package com.lab.ui.panels;
 
-import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.InvocationTargetException;
 
 import javax.swing.JButton;
-import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 
-import jseleniumui.UIBuilder;
-import net.miginfocom.swing.MigLayout;
-
-import org.apache.commons.lang3.StringUtils;
-
 import com.lab.model.FindMatchModel;
+import com.lab.util.UIBuilder;
 import com.lab.util.UIModelBinder;
+
+import net.miginfocom.swing.MigLayout;
 
 public class SkipPanel extends JPanel {
 
 	public static final String NAME = "SkipPanel";  
-	private static SkipPanel skipPanel = new SkipPanel();
+	public static SkipPanel skipPanel = new SkipPanel();
 	MigLayout layout = new MigLayout("","[][][][][][][][][]","[][][]");
 	
 	/**

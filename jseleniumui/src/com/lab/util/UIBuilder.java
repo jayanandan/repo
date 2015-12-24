@@ -1,15 +1,10 @@
 package com.lab.util;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JSeparator;
-import javax.swing.JTextField;
-
 import java.awt.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -21,9 +16,9 @@ import com.lab.ui.panels.SkipPanel;
 public class UIBuilder {
 
 	private static Map<String,Component> components;
-	{
+	static{
 		components = new HashMap<String, Component>();
-		components.put(SkipPanel.NAME, new SkipPanel());
+		components.put(SkipPanel.NAME, SkipPanel.skipPanel);
 	}
 	
 	public static Component getComponentByName(String name){
@@ -81,6 +76,10 @@ public class UIBuilder {
 		};
 		addComponent(id, jCheckBox);
 		return jCheckBox;
+	}
+	
+	public static JButton createButton(String label){
+		return new JButton(label);
 	}
 	
 }
