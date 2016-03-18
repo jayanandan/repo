@@ -1,0 +1,219 @@
+package com.lab;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
+
+/**
+ * This is Util class to manipulate json object
+ * 
+ * @author 
+ *
+ */
+public class JsonUtil {
+	
+	private static Pattern arrayIndexPattern = Pattern.compile("\\[(.*?)\\]");
+	
+	private static JsonUtil jsonUtil = new JsonUtil();
+	private JsonUtil(){}
+	
+	public static JsonUtil getInstance(){
+		return jsonUtil;
+	}
+	
+	/**
+	 * This is to prepare the json object for the passed list of json paths
+	 * 
+	 * @param jsonPaths
+	 * @return
+	 */
+	public JsonObject prepareJsonObject(List<String> jsonPaths){
+		return prepareJsonObject(jsonPaths, null);
+	}
+	
+	/**
+	 * This is to prepare the passed json object with the json paths
+	 * @param jsonPaths
+	 * @param rootObj
+	 * @return
+	 */
+	private JsonObject prepareJsonObject(List<String> jsonPaths,JsonObject rootObj){
+		Pattern arrayIndexPattern = Pattern.compile("\\[(.*?)\\]");
+		if(null == rootObj){
+			rootObj = new JsonObject();			
+		}
+		String pPath = null;
+		
+		for (String objPath : jsonPaths) {
+			pPath = null;
+			JsonObject cursor = rootObj;
+			
+			for (String jpath : objPath.split("\\.")) {
+				if(pPath==null){
+					pPath = jpath;
+				}
+				
+				JsonObject jpathObj = null;
+				
+				Matcher matcher = arrayIndexPattern.matcher(jpath);
+				if(matcher.find()){
+					String index = matcher.group(1);
+					jpath = jpath.substring(0,jpath.indexOf("["));
+					
+					JsonArray jsonArray = cursor.getAsJsonArray(jpath);
+					if(jsonArray==null){
+						jsonArray = new JsonArray();
+					}
+					int pos =0;
+					if(null != index && index.trim().length()>0){
+						pos = Integer.parseInt(index);
+					}
+					JsonUtil.getInstance().createJsonArray(pos+1,jsonArray);
+					cursor.add(jpath, jsonArray);
+					jpathObj = (JsonObject)jsonArray.get(pos);
+				}else{
+					jpathObj = cursor.getAsJsonObject(jpath);					
+					if(jpathObj==null){
+						jpathObj = new JsonObject();
+					}
+					cursor.add(jpath, jpathObj);
+				}
+				
+				pPath = jpath;
+				cursor=jpathObj;
+				
+			}
+		}
+		return rootObj;
+	}
+	
+	/**
+	 * This is to create the json array for the give size
+	 * 
+	 * @param toSize
+	 * @return
+	 */
+	public JsonArray createJsonArray(int toSize){
+		JsonArray jsonArray = new JsonArray();		
+		createJsonArray(toSize,jsonArray);
+		return jsonArray;
+	}
+	
+	
+	/**
+	 * This is to create/ensure the json array for the give toSize
+	 * @param toSize
+	 * @param jsonArray
+	 */
+	public void createJsonArray(int toSize,JsonArray jsonArray){
+		
+		if(jsonArray == null){
+			jsonArray = new JsonArray();			
+		}
+		
+		int size = jsonArray.size();
+		
+		if(size<toSize){
+			for(;size<toSize;){
+				jsonArray.add(new JsonObject());
+				size++;
+			}
+		}		
+	}
+	
+	/**
+	 * This is to get the json object for the given path
+	 * 
+	 * @param rootObj
+	 * @param objPath
+	 * @return
+	 */
+	public JsonObject getJsonObject(JsonObject rootObj,String objPath){
+		
+		JsonObject cursor = rootObj;
+		//ensure the json object is prepared already or prepare it
+		//for the dynamic indexes, it will ensure the new object is created in the index
+		prepareJsonObject(Arrays.asList(new String[]{objPath}),rootObj);
+		
+		if(objPath.indexOf(".")==-1){
+			return rootObj.getAsJsonObject(objPath);
+		}
+		
+		String[] paths = objPath.split("\\.");
+		
+		int pathCnt = paths.length-1;
+		
+		for (int i=0;i<pathCnt;i++) {
+			String jpath=paths[i];
+			
+			if(isIndexedProperty(jpath)){//for index based property
+				int index = getIndex(jpath);
+				if(index==-1){
+					index = 0;
+				}
+				jpath = jpath.substring(0,jpath.indexOf("["));
+				JsonArray jsonArray = cursor.getAsJsonArray(jpath);
+				cursor = jsonArray.get(index).getAsJsonObject();
+			}else{
+				cursor = cursor.getAsJsonObject(jpath);
+			}
+		}
+		return cursor;
+	}
+	
+	/**
+	 * This method is to find if the property is indexed property or not
+	 * 
+	 * @param pPath
+	 * @return
+	 */
+	public boolean isIndexedProperty(String pPath){
+		Matcher matcher = arrayIndexPattern.matcher(pPath);
+		if(matcher.find()){
+			return Boolean.TRUE;			
+		}
+		return Boolean.FALSE;
+	}
+	
+	
+	/**
+	 * This is to get the index from the path
+	 * 
+	 * @param pPath
+	 * @return
+	 */
+	public int getIndex(String pPath){
+		int index = -1;
+		Matcher matcher = arrayIndexPattern.matcher(pPath);
+		if(matcher.find()){
+			String idx = matcher.group(1);
+			if(idx.trim().length()>0){
+				index = Integer.parseInt(idx);
+			}
+		}
+		return index;
+	}
+	
+	/**
+	 * This is to set the passed value to the respective path in the json object
+	 * 
+	 * @param rootObj
+	 * @param objPath
+	 * @param value
+	 */
+	public void setValueToJsonObj(JsonObject rootObj,String objPath,Object value){
+		String property = objPath.substring(objPath.lastIndexOf(".")+1);
+		JsonObject jsonObject = getJsonObject(rootObj, objPath);
+		if(null != jsonObject)
+			jsonObject.addProperty(property, String.valueOf(value));
+	}
+	
+}
