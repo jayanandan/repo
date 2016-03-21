@@ -1,0 +1,55 @@
+package com.lab;
+
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
+public class TestGson {
+	
+	private static GsonBuilder builder;
+	
+	public static <T> void initBuilder(Class<T> t){
+		builder = new GsonBuilder().registerTypeAdapter(t, new PayLoadSerializer());
+	}
+	List<String> jsonPaths;
+	
+	private static Pattern arrayIndexPattern = Pattern.compile("\\[(.*?)\\]");
+	
+	@Before
+	public void setup(){
+		jsonPaths = new ArrayList<>();
+		jsonPaths.add("Perons.address[].addressline[].state");
+		jsonPaths.add("Perons.address[].addressline[].city");
+		jsonPaths.add("Perons.address[].addressline[].zipcode");
+	}
+	
+	@Test
+	public void test()throws Exception {
+		
+		JsonObject rootObj = JsonUtil.getInstance().prepareJsonObject(jsonPaths);
+		
+		setValueToJsonObj(rootObj, "Perons.address[].addressline[0].state", "tamilnadu");
+		setValueToJsonObj(rootObj, "Perons.address[].addressline[0].city", "chennai");
+		setValueToJsonObj(rootObj, "Perons.address[].addressline[0].zipcode", "6000047");
+		
+		System.out.println(rootObj.toString());
+		
+	}
+	
+	private void setValueToJsonObj(JsonObject rootObj,String objPath,Object value){
+		JsonUtil.getInstance().setValueToJsonObj(rootObj, objPath, value);
+	}
+
+}
