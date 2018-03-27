@@ -1,0 +1,28 @@
+/*Build the legend*/
+        $(go.Panel,"Table",{ padding: 1.5, 
+            defaultSeparatorPadding: new go.Margin(0, 0, 0, 5),column:2,visible:false,alignment: go.Spot.Right},
+            new go.Binding("visible","showLengend",function(show){console.log(show);return show;}),
+          $(go.Panel,"Horizontal",{row:0,column:0},
+            $(go.Shape,{ geometry: go.Geometry.parse("M0,0 L50,0"),strokeWidth: 2, stroke: "black",strokeDashArray:[5,5]}),
+            $(go.Shape,"Triangle",{width:10,height:10,angle:90})        
+          ),
+          $(go.TextBlock,"Manual Processing",{row:0,column:1}),
+          
+          $(go.Panel,"Horizontal",{row:1,column:0},
+            $(go.Shape,{ geometry: go.Geometry.parse("M0,0 L50,0"),strokeWidth: 2, stroke: "black"}),
+            $(go.Shape,"Triangle",{width:10,height:10,angle:90})        
+          ),
+          $(go.TextBlock,"Auto Processing",{row:1,column:1}),
+
+          $(go.Panel,"Horizontal",{row:2,column:0},
+            $(go.Shape,{ geometry: go.Geometry.parse("M0,0 L50,0"),strokeWidth: 2, stroke: "blue"}),
+            $(go.Shape,"Triangle",{width:10,height:10,angle:90,fill:"blue"})        
+          ),
+          $(go.TextBlock,"Intraday reporting",{row:2,column:1}),
+
+          $(go.Shape,"RoundedRectangle",{width:40,height:20,fill:"#fcdfba",row:0,column:3}),
+          $(go.TextBlock,"External",{font:font1,row:0,column:4}),
+
+          $(go.Shape,"RoundedRectangle",{width:40,height:20,fill:"#7583ba",margin:new go.Margin(10,0,0,0),row:1,column:3}),
+          $(go.TextBlock,"Internal",{margin:new go.Margin(10,0,0,5),font:font1,row:1,column:4})    
+        )
