@@ -401,3 +401,28 @@ Subbu Kunda
   </body>
 
 </html>
+
+
+	// instantiate the default code formatter with the given _options
+		final CodeFormatter codeFormatter = ToolFactory.createCodeFormatter(_options);
+
+		final TextEdit edit = codeFormatter.format(
+				CodeFormatter.K_COMPILATION_UNIT, // format a compilation unit
+				content.toString(), // source to format
+				0, // starting position
+				content.length(), // length
+				0, // initial indentation
+				System.getProperty("line.separator") // line separator
+			);
+		
+		IDocument document = new Document(content.toString());
+		try {
+			edit.apply(document);
+		} catch (MalformedTreeException e) {
+			e.printStackTrace();
+		} catch (BadLocationException e) {
+			e.printStackTrace();
+		}
+
+		// display the formatted string on the System out
+		System.out.println(document.get());		
